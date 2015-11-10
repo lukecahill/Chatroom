@@ -1,0 +1,36 @@
+#chatbox {
+    margin: 0 auto;
+    margin-bottom: 25px;
+	margin-top: 3%;
+    border: 1px solid #ccc;
+    background: #fff;
+    height: 300px;
+    width: 75%;
+    padding: 3%;
+    overflow-y: scroll;
+}
+
+.welcome {
+    float: left;
+}
+
+hr {
+	margin: 0px;
+}
+
+.top-buffer {
+	margin-top: 3%;
+}
+
+.datetime {
+	font-size: 8px;
+	float: right;
+}
+
+.sender {
+	color: red;
+}
+
+footer {
+	float: right;
+}
