@@ -10,8 +10,8 @@ $stmt->execute(array(':lastmessage' => $lastmessage));
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $rowCount = count($rows);
 
-if($rowCount > 1) {
-	$rownumber = $rowCount > 1 ? $rows[$rowCount - 1]['MessageId'] : $rows[1]['MessageId'];
+if($rowCount > 0) {
+	$rownumber = $rowCount > 1 ? $rows[$rowCount - 1]['MessageId'] : $rows[0]['MessageId'];
 	$send = array('result' => true, 'rownumber' => $rownumber);
 	echo json_encode($send);
 } else {
