@@ -16,7 +16,8 @@ $(document).ready(function() {
 		}).done(function(message) {
 			var $chatbox = $('#chatbox');
 			//$('.prepended').remove();
-			$chatbox.append('<span class="prepended">' + message + '</span>');
+			//$chatbox.append('<span class="prepended">' + message + '</span>');
+			$chatbox.append(message);
 			$chatbox.animate({ scrollTop: $chatbox.prop('scrollHeight')}, 750)
 		});
 	};
@@ -30,9 +31,8 @@ $(document).ready(function() {
 			var recievedData = $.parseJSON(data);
 			$('.loading').hide();
 			if(recievedData.result == true) {
-				lastMessage++;
 				getMessages();
-				lastMessage = (recievedData.rownumber - 1);
+				lastMessage = (recievedData.rownumber);
 				recievedData = '';
 			}
 
@@ -113,7 +113,7 @@ $(document).ready(function() {
 		setName();
 	});
 	
-	$('#name').on('keyup', function() {
+	$('#name').on('keyup', function(event) {
 		if(event.keyCode == 13) {
 			setName();
 		}

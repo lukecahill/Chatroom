@@ -1,21 +1,36 @@
 <?php
+
 require_once('db-connect.inc.php');
 $db = getDatabasePDO();
 
 $lastmessage = $_POST['lastmessage'];
 
-$stmt = $db->prepare('SELECT MessageId FROM Messages WHERE MessageId > :lastmessage');
-$stmt->execute(array(':lastmessage' => $lastmessage));
-
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$rowCount = count($rows);
-
-if($rowCount > 0) {
-	$rownumber = $rowCount > 1 ? $rows[$rowCount - 1]['MessageId'] : $rows[0]['MessageId'];
-	$send = array('result' => true, 'rownumber' => $rownumber);
+if($lastmessage == 0) {
+	$stmt = $db->prepare("SELECT MessageId 
+						FROM Messages
+						ORDER BY MessageId DESC
+						LIMIT 1");
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$result = $rows[0]['MessageId'];
+	
+	$send = array('result' => true, 'rownumber' => $result);
 	echo json_encode($send);
 } else {
-	echo json_encode(false);
+	$stmt = $db->prepare("SELECT MessageId 
+						FROM Messages
+						ORDER BY MessageId DESC
+						LIMIT 1");
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$result = $rows[0]['MessageId'];
+	
+	if($result > $lastmessage) {
+		$send = array('result' => true, 'rownumber' => $result);
+		echo json_encode($send);
+	} else {
+		echo json_encode(false);
+	} 
 }
 
 ?>
