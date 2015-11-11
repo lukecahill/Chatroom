@@ -2,23 +2,46 @@
 
 $(document).ready(function() {
 	
+	var lastMessage = 0;
 	$('.welcome').hide();
+	//getMessages();
 	
-	var getMessages = function() {
+	function getMessages() {
 		// get the message here
 		
 		$.ajax({
-			method: 'GET',
-			url: 'get.php'
+			method: 'POST',
+			url: 'get.php',
+			data: { lastmessage: lastMessage}
 		}).done(function(message) {
 			var $chatbox = $('#chatbox');
-			$('.prepended').remove();
+			//$('.prepended').remove();
 			$chatbox.append('<span class="prepended">' + message + '</span>');
 			$chatbox.animate({ scrollTop: $chatbox.prop('scrollHeight')}, 750)
 		});
 	};
 	
-	var sendMessage = function() {
+	function checkForNewMessage() {
+		$.ajax({
+			method: 'POST',
+			url: 'check.php',
+			data: { lastmessage: lastMessage }
+		}).done(function(data) {
+			var recievedData = $.parseJSON(data);
+			$('.loading').hide();
+			if(recievedData.result == true) {
+				lastMessage++;
+				getMessages();
+				lastMessage = (recievedData.rownumber - 1);
+				recievedData = '';
+			}
+
+		}).fail(function() {
+			console.log("Failed to check for new messages");
+		});
+	};
+	
+	function sendMessage() {
 		// post the message here
 		var message = $('#message').val() 
 	    var $chatbox = $('#chatbox');
@@ -29,13 +52,13 @@ $(document).ready(function() {
 		   url: 'post.php',
 		   data: { message: message, name: name}
 		}).done(function(done) {
-		   getMessages();
+		   checkForNewMessage();
 		});
 	};
 	
 	// Get the new messages every 2.5 seconds. Trying to reduce the database load.
 	var getMessageInterval = setInterval(function() {
-		getMessages();
+		checkForNewMessage();
 	}, 2500);
 	
 	var stop = function() {

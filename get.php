@@ -2,8 +2,10 @@
 require_once('db-connect.inc.php');
 $db = getDatabasePDO();
 
-$stmt = $db->prepare('SELECT Message, SenderName, MessageSentTime FROM Messages');
-$stmt->execute();
+$lastMessage = $_POST['lastmessage'];
+
+$stmt = $db->prepare('SELECT MessageId, Message, SenderName, MessageSentTime FROM Messages WHERE MessageId > :lastmessage');
+$stmt->execute(array(':lastmessage' => $lastMessage));
 
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $return = '';

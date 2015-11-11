@@ -34,3 +34,7 @@ hr {
 footer {
 	float: right;
 }
+
+.loading {
+	text-align: center;
+}
