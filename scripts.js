@@ -80,10 +80,14 @@ $(document).ready(function() {
 	};
 	
 	var setName = function() {
-		$name = $('#name').val();
-		$('.welcome').html('Welcome, <b>' + $name + '</b>');
-		$('#setYourName').hide();
-		$('.welcome').show();
+		$name = $.trim($('#name').val());
+		if($name !== '') {
+			$('.welcome').html('Welcome, <b>' + $name + '</b>');
+			$('#setYourName').hide();
+			$('.welcome').show();
+		} else {
+			alert('Name cannot be blank!');
+		}
 	};
 	
 	// When the send message button is clicked.
