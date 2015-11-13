@@ -81,10 +81,11 @@ $(document).ready(function() {
 	
 	var setName = function() {
 		$name = $.trim($('#name').val());
+		$welcome = $('.welcome');
 		if($name !== '') {
-			$('.welcome').html('Welcome, <b>' + $name + '</b>');
+			$welcome.html('Welcome, <b>' + $name + '</b>');
 			$('#setYourName').hide();
-			$('.welcome').show();
+			$welcome.show();
 		} else {
 			alert('Name cannot be blank!');
 		}
@@ -125,5 +126,9 @@ $(document).ready(function() {
 	
 	$('#aboutButton').on('click', function() {
 		alert('Created using HTML, CSS using bootstrap, JavaScript with jQuery, and PHP for the backend to post into the MySQL database.\n\nGets the new messages every 2.5 seconds, this could be improved, but this is mostly just a prototype.');
+	});
+	
+	$('#chatbox').delegate('.unread', 'mouseover', function() {
+		$(this).removeClass('unread');
 	});
 });
