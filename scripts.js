@@ -15,8 +15,6 @@ $(document).ready(function() {
 			data: { lastmessage: lastMessage}
 		}).done(function(message) {
 			var $chatbox = $('#chatbox');
-			//$('.prepended').remove();
-			//$chatbox.append('<span class="prepended">' + message + '</span>');
 			$chatbox.append(message);
 			$chatbox.animate({ scrollTop: $chatbox.prop('scrollHeight')}, 750)
 		});
@@ -44,7 +42,6 @@ $(document).ready(function() {
 	function sendMessage() {
 		// post the message here
 		var message = $('#message').val() 
-	    var $chatbox = $('#chatbox');
 		var name = $('#name').val();
 		
 		$.ajax({
