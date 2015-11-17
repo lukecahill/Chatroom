@@ -65,6 +65,7 @@ $(document).ready(function() {
 	// Used to clear the message box.
 	var clearTextbox = function() {
 		$('#message').val('');
+		$('#wordCount').html('');
 	};
 	
 	var checkForName = function() {
@@ -107,6 +108,17 @@ $(document).ready(function() {
 			} else {
 				alert("Please enter your name");
 			}
+		}
+		
+		var re = new RegExp("\s+");
+		var $message = $('#message');
+		if($message.val().indexOf(' ') > -1) {
+			var split = $message.val().split(' ');
+			var length = split.length - 1;
+			console.log(length);
+			$('#wordCount').html('Current length: ' + length);
+		} else {
+			console.log("wut")
 		}
 	});
 	
