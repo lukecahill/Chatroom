@@ -116,8 +116,6 @@ $(document).ready(function() {
 			var split = $message.val().split(' ');
 			var length = split.length - 1;
 			$('#wordCount').html('Current length: ' + length);
-		} else {
-			console.log("wut")
 		}
 	});
 	
