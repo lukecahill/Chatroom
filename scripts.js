@@ -2,9 +2,9 @@
 
 $(document).ready(function() {
 	
-	var lastMessage = 0;
+	var lastMessage = 0, $welcome = $('.welcome'), $chatbox = $('#chatbox'), $name = $('#name'), re = new RegExp("\s+");
 	$('.welcome').hide();
-	//getMessages();
+	checkForNewMessage();
 	
 	function getMessages() {
 		// get the message here
@@ -14,7 +14,6 @@ $(document).ready(function() {
 			url: 'get.php',
 			data: { lastmessage: lastMessage}
 		}).done(function(message) {
-			var $chatbox = $('#chatbox');
 			$chatbox.append(message);
 			$chatbox.animate({ scrollTop: $chatbox.prop('scrollHeight')}, 750)
 		});
@@ -42,7 +41,7 @@ $(document).ready(function() {
 	function sendMessage() {
 		// post the message here
 		var message = $('#message').val() 
-		var name = $('#name').val();
+		var name = $name.val();
 		
 		$.ajax({
 		   method: 'POST',
@@ -69,8 +68,8 @@ $(document).ready(function() {
 	};
 	
 	var checkForName = function() {
-		$name = $.trim($('#name').val());
-		if($name == '') {
+		var nameCheck = $.trim($name.val());
+		if(nameCheck == '') {
 			return false;
 		} else {
 			return true;
@@ -78,10 +77,9 @@ $(document).ready(function() {
 	};
 	
 	var setName = function() {
-		$name = $.trim($('#name').val());
-		$welcome = $('.welcome');
+		var setName = $.trim($name.val());
 		if($name !== '') {
-			$welcome.html('Welcome, <b>' + $name + '</b>');
+			$welcome.html('Welcome, <b>' + setName + '</b>');
 			$('#setYourName').hide();
 			$welcome.show();
 		} else {
@@ -110,7 +108,6 @@ $(document).ready(function() {
 			}
 		}
 		
-		var re = new RegExp("\s+");
 		var $message = $('#message');
 		if($message.val().indexOf(' ') > -1) {
 			var split = $message.val().split(' ');
@@ -124,7 +121,7 @@ $(document).ready(function() {
 		setName();
 	});
 	
-	$('#name').on('keyup', function(event) {
+	$name.on('keyup', function(event) {
 		if(event.keyCode == 13) {
 			setName();
 		}
@@ -134,7 +131,7 @@ $(document).ready(function() {
 		alert('Created using HTML, CSS using bootstrap, JavaScript with jQuery, and PHP for the backend to post into the MySQL database.\n\nGets the new messages every 2.5 seconds, this could be improved, but this is mostly just a prototype.');
 	});
 	
-	$('#chatbox').delegate('.unread', 'mouseover', function() {
+	$chatbox.delegate('.unread', 'mouseover', function() {
 		$(this).removeClass('unread');
 	});
 });
