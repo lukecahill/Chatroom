@@ -5,6 +5,10 @@ $(document).ready(function() {
 	var lastMessage = 0, $welcome = $('.welcome'), $chatbox = $('#chatbox'), $name = $('#name'), re = new RegExp("\s+");
 	$('.welcome').hide();
 	checkForNewMessage();
+	var maximum = 500;
+	$wordCount = $('#wordCount');
+	
+	$wordCount.html(maximum + ' characters remaining');
 	
 	function getMessages() {
 		// get the message here
@@ -109,11 +113,9 @@ $(document).ready(function() {
 		}
 		
 		var $message = $('#message');
-		if($message.val().indexOf(' ') > -1) {
-			var split = $message.val().split(' ');
-			var length = split.length - 1;
-			$('#wordCount').html('Current length: ' + length);
-		}
+		var remaining = (maximum - $message.val().length);
+		
+		$wordCount.html(remaining + ' characters remaining');
 	});
 	
 	// Set your chat name
