@@ -1,5 +1,7 @@
 CREATE DATABASE chat_application;
 
+USE chat_application;
+
 CREATE TABLE Messages (
     MessageId INT(6) AUTO_INCREMENT PRIMARY KEY,
     Message VARCHAR(6000),
