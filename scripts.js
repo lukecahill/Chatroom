@@ -141,7 +141,7 @@ $(document).ready(function() {
 	};
 	
 	/**
-	* @function addTag
+	* @function 
 	*
 	* Calls the sendMessage() function if the send message button is clicked.
 	**/
@@ -155,7 +155,7 @@ $(document).ready(function() {
     });
 	
 	/**
-	* @function addTag
+	* @function 
 	*
 	* Changes the amount of characters remaining. 
 	* Calls the sendMessage() function if the return key is pressed. 
