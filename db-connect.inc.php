@@ -12,7 +12,7 @@
 class Database {
 	public static function ConnectDb() {
 		$host = 'localhost';
-		$db = 'notes';
+		$db = 'chat';
 		$user = 'root';
 		$pass = '';
 		$charset = 'utf8';
