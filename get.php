@@ -1,6 +1,6 @@
 <?php
 require_once('db-connect.inc.php');
-$db = getDatabasePDO();
+$db = Database::ConnectDb();
 
 $lastMessage = $_POST['lastmessage'];
 

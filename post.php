@@ -2,7 +2,7 @@
 if(isset($_POST['message'])) {
 	
 	require_once('db-connect.inc.php');
-	$db = getDatabasePDO();
+	$db = Database::ConnectDb();
 
 	$message = $_POST['message'];
 	$sender = $_POST['name'];
